@@ -1,0 +1,11 @@
+{
+  "name": "crypto-aes-ctr",
+  "version": "1.0.0",
+  "description": "Example of how to use AES in CTR mode",
+  "main": "app.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {},
+  "author": "Sec51.com <info@sec51.com>",
+  "license": "ISC"
+}
