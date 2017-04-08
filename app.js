@@ -26,7 +26,6 @@ Promise.all([Key.generate(32), Key.generate(32), Key.generate(16)]).then(
     fileCrypto.encryptChunk(Buffer.from('YELLOW_SUBMARINE', INPUT_ENCODING), hmacKey)
 
     .then(result => {
-
       // Resolve the promise
       // Print the cipher text in hex format (the buffer can be directly stored to file in case)
       console.log(result.cipherText.toString(OUTPUT_ENCODING));
@@ -34,14 +33,16 @@ Promise.all([Key.generate(32), Key.generate(32), Key.generate(16)]).then(
       // the Mac needs to be stored as well next to it.
       console.log(result.mac.toString(OUTPUT_ENCODING));
 
+      // return the result to proceed with the chaining
+      return result;
+    })
+    .then((result) => {
       // at this point, using the same keys, decrypt the file
       // We encrypted only 1 block, therefore the counter is zero
       fileCrypto.decryptChunk(result.cipherText, result.mac, hmacKey, 0)
       .then(clear => {
         console.log(clear.toString(INPUT_ENCODING));
-      })
-      .catch((err) => console.error(err));
-
+      });
     })
     .catch((err) => console.log(err));
   },
